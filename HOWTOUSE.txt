@@ -1,0 +1,3 @@
+Dùng thì lên server tạo 1 link. Truyền link đó vào trang UI để xử lý. Sau đó tạo một file code php để nhúng php vào 
+Mục đích nhúng php và cho nó chạy everywhere on site. Điều đó giúp xử lý đường link được viểt trong file UI và nó được liên kết tới php
+Tóm lại cần chèn 1 file UI vào nơi cần sd, chèn 1 file php vào server. Done!!!

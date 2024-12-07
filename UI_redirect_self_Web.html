@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>URL Converter Tool</title>
+    <style>
+        /* style for form */
+        .child__main {
+            width: 100%;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+
+        }
+
+        .box__main {
+            width: 60%;
+            border: 1px solid;
+            box-shadow: 0px 14px 25px -5px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgb(184, 184, 184);
+            border-radius: 15px;
+            display: block;
+            text-align: center;
+        }
+
+        .item__main {
+            flex-wrap: wrap;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            justify-content: space-around;
+            padding: 4px 5px;
+        }
+
+        /* css button */
+
+        .button {
+
+            border: none;
+            background: #800020;
+            box-shadow: 0px 0.5px 1px 2px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+            color: #F9F2F4;
+            user-select: none;
+            -webkit-user-select: none;
+            border-radius: 15px 0 15px 0;
+            touch-action: manipulation;
+            height: auto;
+            width: auto;
+        }
+
+        .button:hover {
+
+            background: #F9F2F4;
+
+            color: #800020;
+            border-radius: 0 15px 0 15px;
+            transition: transparent 0.8s all;
+            cursor: pointer;
+
+        }
+
+        /* end css button */
+        .needConvert {
+            height: 22px;
+            width: 30%;
+            padding: 4px;
+            border: none;
+            font-size: 14px;
+
+
+        }
+
+        .needConvert:hover {
+
+            background: rgb(239, 239, 239);
+            transition: 0.3s all;
+
+        }
+
+        .convert {
+            height: 22px;
+            width: 30%;
+            padding: 4px;
+            border: none;
+            font-size: 14px;
+
+        }
+
+        .convert:hover {
+
+            background: rgb(239, 239, 239);
+            transition: 0.3s all;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .result {
+            padding: 0 0 20px 5px;
+            flex-wrap: wrap;
+            list-style: square;
+            color: #808080;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: #434343;
+            word-break: break-all;
+
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #9b9b9b;
+            transition: 0.3s all;
+        }
+
+        .User__manual {
+            color: rgb(185, 184, 184);
+        }
+
+        .promo {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1em;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #F7BC28 0, #8cff00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .icon {
+
+            width: fit-content;
+            height: fit-content;
+
+
+            font-size: auto;
+            color: #9e9e9e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="promo">
+        <h1>Fake Link Online</h1>
+    </div>
+    <div class="container">
+        <div class="child__main">
+            <div class="box__main">
+                <div class="icon">
+                    <i class="fa-solid fa-link"></i>
+                </div>
+                <div class="item__main">
+                    <input class="needConvert" type="text" id="inputUrl" placeholder="Enter the real URL to convert" />
+                    |
+                    <input class="convert" type="text" id="fakeUrl" placeholder="Enter the fake URL to display" />
+                    <button class="button" id="convertButton">Convert URL</button>
+                </div>
+                <div class="result" id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('convertButton').addEventListener('click', function () {
+            // Lấy giá trị của input URL và fake URL
+            const inputUrl = document.getElementById('inputUrl').value;
+            const fakeUrl = document.getElementById('fakeUrl').value;
+
+            // Kiểm tra URL thật có hợp lệ không
+            let validUrl;
+            try {
+                validUrl = new URL(inputUrl);
+            } catch (error) {
+                alert("Invalid real URL format! Please enter a valid real URL.");
+                return;
+            }
+
+            // Kiểm tra nếu fake URL không được nhập
+            if (fakeUrl.trim() === "") {
+                alert("Please enter a fake URL to display.");
+                return;
+            }
+
+            // Hiển thị URL giả với sự kiện click để chuyển đến URL thật
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `<a href="${fakeUrl}" id="fakeLink" target="_self">${fakeUrl}</a>`;
+
+            // Gán sự kiện cho link giả
+            const fakeLink = document.getElementById('fakeLink');
+            fakeLink.addEventListener('click', function (event) {
+                event.preventDefault(); // Ngăn chuyển hướng mặc định
+                window.location.href = validUrl.href; // Chuyển hướng tới URL thật
+            });
+        });
+    </script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+</script>
+
+</body>
+
+</html>
